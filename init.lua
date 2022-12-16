@@ -1,0 +1,6 @@
+require("jace.set")
+require("jace.packer")
+require("jace.remap")
+require("jace")
+require("dap-python").setup("python")
+print("This if from root")
