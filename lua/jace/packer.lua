@@ -1,59 +1,55 @@
---2 This file can be loaded by calling `lua require('plugins')` from your init.vim
-
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
-
-local packer = require('packer')
+vim.cmd("packadd packer.nvim")
 
 return require('packer').startup(function(use)
-    -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    
+    -- Your plugins go here
+
+    -- Colorscheme
+    use "EdenEast/nightfox.nvim"
+
     use {
-        'sonph/onehalf', rtp = 'vim',
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
-    use{ 
-        'nvim-telescope/telescope.nvim', rtp = '0.1.x',
+
+    -- Telescope
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    use 'neovim/nvim-lspconfig'
 
-    -- Auto-complete
-    use{
-        'hrsh7th/nvim-cmp',
+    -- Treesitter
+    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use('mbbill/undotree')
+    use('tpope/vim-fugitive')
+
+    -- Language server
+    use {
+        'VonHeikemen/lsp-zero.nvim',
         requires = {
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-path' },
-            { 'hrsh7th/cmp-cmdline' },
-            { 'hrsh7th/vim-vsnip' },
-            { 'hrsh7th/cmp-vsnip' },
-            { 'f3fora/cmp-spell', { 'hrsh7th/cmp-calc' }, { 'hrsh7th/cmp-emoji'} },
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'},
+
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-buffer'},
+            {'hrsh7th/cmp-path'},
+            {'saadparwaiz1/cmp_luasnip'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/cmp-nvim-lua'},
+
+            -- Snippets
+            {'L3MON4D3/LuaSnip'},
+            {'rafamadriz/friendly-snippets'},
         }
     }
 
-    -- Show function hints
+    -- Auto-pairs
     use {
-        'ray-x/lsp_signature.nvim',
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
     }
-
-    -- Git signs
-    use {
-        'mhinz/vim-signify',
-    }
-    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-    
-    -- Multiple terminals
-    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-      require("toggleterm").setup()
-    end}
-
-    -- Brackets
-    use 'jiangmiao/auto-pairs'
-
-    -- Debugging
-    use 'mfussenegger/nvim-dap'
-    use 'mfussenegger/nvim-dap-python'
-
-    use {'lervag/vimtex', ft = {'tex', 'latex'}}
 end)

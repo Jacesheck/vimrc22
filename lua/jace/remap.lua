@@ -1,30 +1,25 @@
-local nnoremap = require("jace.keymap").nnoremap
-local inoremap = require("jace.keymap").inoremap
+vim.keymap.set("n","<leader>pv", vim.cmd.Ex)
 
-nnoremap("<leader>pv", "<cmd>Ex<CR>")
+vim.keymap.set("i","jk", "<Esc>")
 
-nnoremap("<leader>ff", "<cmd>Telescope find_files hidden=true<cr>")
-nnoremap("<leader>fg", "<cmd>Telescope live_grep hidden=false<cr>")
-nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
-nnoremap("<leader>fh", "<cmd>Telescope help_tags<cr>")
-nnoremap("<leader>gs", "<cmd>Telescope git_status<cr>")
+-- Move selected
+vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv")
 
-nnoremap("<leader>tt", "<cmd>ToggleTerm<cr>")
-nnoremap("<leader>1tt", "<cmd>1ToggleTerm<cr>")
-nnoremap("<leader>2tt", "<cmd>2ToggleTerm<cr>")
-nnoremap("<leader>3tt", "<cmd>3ToggleTerm<cr>")
-nnoremap("<leader>4tt", "<cmd>4ToggleTerm<cr>")
-nnoremap("<leader>5tt", "<cmd>5ToggleTerm<cr>")
+-- Don't get dizzy
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
-nnoremap("<F5>","<Cmd>lua require'dap'.continue()<CR>")
-nnoremap("<leader>u","<Cmd>lua require'dap'.step_over()<CR>")
-nnoremap("<leader>i","<Cmd>lua require'dap'.step_into()<CR>")
-nnoremap("<leader>o","<Cmd>lua require'dap'.step_out()<CR>")
-nnoremap("<Leader>b","<Cmd>lua require'dap'.toggle_breakpoint()<CR>")
-nnoremap("<Leader>B","<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-nnoremap("<Leader>lp","<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
-nnoremap("<Leader>dr","<Cmd>lua require'dap'.repl.open()<CR>")
-nnoremap("<Leader>dl","<Cmd>lua require'dap'.run_last()<CR>")
-nnoremap("<Leader>dt","<Cmd>lua require'dap'.terminate()<CR>")
+vim.keymap.set("n", "<leader>y", "\"*y")
+vim.keymap.set("v", "<leader>y", "\"*y")
+vim.keymap.set("n", "<leader>Y", "\"*Y")
 
-inoremap("jk", "<Esc>")
+-- This is pretty fun
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- Tabs
+vim.keymap.set("n", "<leader>tc", vim.cmd.tabc)
+vim.keymap.set("n", "<leader>to", vim.cmd.tabo)
