@@ -28,6 +28,7 @@ require('toggleterm').setup{
     insert_mappings = true,
     terminal_mappings = true,
     start_in_insert_mode = false,
+    close_on_exit = false,
 }
 
 function START_REACT()

@@ -58,7 +58,13 @@ return require('packer').startup(function(use)
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
+    use "windwp/nvim-ts-autotag"
 
     -- Toggleterm
     use {"akinsho/toggleterm.nvim", tag = '*'}
+
+    -- Debugging
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
+    use {"jacesheck/codi.vim", branch='windowsSupport'}
 end)
