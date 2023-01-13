@@ -22,6 +22,7 @@ return require('packer').startup(function(use)
     -- Treesitter
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('mbbill/undotree')
+    use 'Djancyp/better-comments.nvim'
 
     -- Git
     use('tpope/vim-fugitive')
@@ -66,5 +67,14 @@ return require('packer').startup(function(use)
     -- Debugging
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
-    use {"jacesheck/codi.vim", branch='windowsSupport'}
+    -- Markdown
+    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+
+    -- Leap
+    use 'ggandor/leap.nvim'
+
+    --use {"jacesheck/codi.vim", branch='windowsSupport'}
+    use "C:/Users/jaces/Desktop/nvim/codi.vim"
+
+    --    use {'stevearc/vim-arduino'}
 end)

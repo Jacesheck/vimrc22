@@ -1,3 +1,4 @@
+vim.opt.signcolumn = 'yes'
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
@@ -6,7 +7,6 @@ lsp.ensure_installed({
   'tsserver',
   'eslint',
   'sumneko_lua',
-  'rust_analyzer',
 })
 
 -- Fix Undefined global 'vim'
@@ -37,7 +37,7 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.set_preferences({
-    suggest_lsp_servers = false,
+    suggest_lsp_servers = true,
     sign_icons = {
         error = 'E',
         warn = 'W',
