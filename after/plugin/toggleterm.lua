@@ -30,7 +30,7 @@ require('toggleterm').setup{
     open_mapping = "<C-\\>",
     insert_mappings = true,
     terminal_mappings = true,
-    start_in_insert_mode = false,
+    start_in_insert = false,
     close_on_exit = false,
 }
 
@@ -61,4 +61,25 @@ function START_REACT()
     print('Starting react server..')
 end
 
+function START_MANAGE()
+    local Terminal = require('toggleterm.terminal').Terminal
+    local back = Terminal:new{
+        dir = 'C:/Users/jaces/Desktop/Jarom/manageteacherbackend',
+        cmd='npm run local',
+        count = 2,
+        close_on_exit = false,
+    }
+    local front = Terminal:new{
+        dir = 'C:/Users/jaces/Desktop/Jarom/manageteacherfrontend',
+        cmd='npm start',
+        count = 3,
+        close_on_exit = false,
+    }
+    -- use :toggle() to show instead
+    back:spawn()
+    front:spawn()
+    print('Starting manage server..')
+end
+
 vim.keymap.set('n', '<leader>srs', '<cmd>lua START_REACT()<CR>', {silent=true})
+vim.keymap.set('n', '<leader>srm', '<cmd>lua START_MANAGE()<CR>', {silent=true})
