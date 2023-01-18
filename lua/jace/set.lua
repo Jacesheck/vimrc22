@@ -7,7 +7,9 @@ vim.opt.expandtab = true
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.ic = true
-vim.opt.shell = 'powershell.exe'
+if vim.fn.has('win32') == 1 then
+    vim.opt.shell = 'powershell.exe'
+end
 
 vim.opt.smartindent = true
 
@@ -22,5 +24,9 @@ vim.opt.hidden = true
 --undotree
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("UserProfile") .. "/.vim/undodir"
+if vim.fn.has('win32') ~= 0 then
+    vim.opt.undodir = os.getenv("UserProfile") .. "/.vim/undodir"
+else
+    vim.opt.undodir = "~/.vim/undodir"
+end
 vim.opt.undofile = true
