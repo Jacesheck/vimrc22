@@ -20,14 +20,6 @@ require('better-comment').Setup({
             bg = "",
             bold = false,
             virtual_text = "",
-        },
-        {
-            name = "!",
-            fg = "#f44747",
-            bg = "",
-            bold = true,
-            virtual_text = "",
         }
-
     }
 })

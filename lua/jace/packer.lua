@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('mbbill/undotree')
     use 'Djancyp/better-comments.nvim'
+    use 'norcalli/nvim-colorizer.lua'
 
     -- Git
     use('tpope/vim-fugitive')
@@ -73,8 +74,8 @@ return require('packer').startup(function(use)
     -- Leap
     use 'ggandor/leap.nvim'
 
-    --use {"jacesheck/codi.vim", branch='windowsSupport'}
-    use "C:/Users/jaces/Desktop/nvim/codi.vim"
-
+    use 'metakirby5/codi.vim'
     --    use {'stevearc/vim-arduino'}
+    --
+    use 'AndrewRadev/linediff.vim'
 end)

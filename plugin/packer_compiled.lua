@@ -82,7 +82,7 @@ _G.packer_plugins = {
   ["better-comments.nvim"] = {
     loaded = true,
     path = "C:\\Users\\jaces\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\better-comments.nvim",
-    url = "https://github.com/Djancyp/better-comments.nvim"
+    url = "https://github.com/C://Users/jaces/Desktop/nvim/better-comments.nvim"
   },
   ["cmp-buffer"] = {
     loaded = true,
@@ -112,7 +112,7 @@ _G.packer_plugins = {
   ["codi.vim"] = {
     loaded = true,
     path = "C:\\Users\\jaces\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\codi.vim",
-    url = "C:\\Users\\jaces\\Desktop\\nvim\\codi.vim"
+    url = "https://github.com/metakirby5/codi.vim"
   },
   ["friendly-snippets"] = {
     loaded = true,
@@ -128,6 +128,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\jaces\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\leap.nvim",
     url = "https://github.com/ggandor/leap.nvim"
+  },
+  ["linediff.vim"] = {
+    loaded = true,
+    path = "C:\\Users\\jaces\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\linediff.vim",
+    url = "https://github.com/AndrewRadev/linediff.vim"
   },
   ["lsp-zero.nvim"] = {
     loaded = true,
@@ -171,6 +176,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\jaces\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "C:\\Users\\jaces\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-colorizer.lua",
+    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-dap"] = {
     loaded = true,
