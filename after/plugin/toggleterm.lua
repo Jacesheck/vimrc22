@@ -20,7 +20,6 @@ local powershell_options = {
 }
 
 if vim.fn.has('win32') == 1 then
-    print('has 32')
     for option, value in pairs(powershell_options) do
         vim.opt[option] = value
     end
