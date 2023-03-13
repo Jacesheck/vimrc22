@@ -55,6 +55,9 @@ return require('packer').startup(function(use)
         }
     }
 
+    -- Auto-formatter
+    use 'dense-analysis/ale'
+
     -- Auto-pairs
     use {
         "windwp/nvim-autopairs",
@@ -69,7 +72,8 @@ return require('packer').startup(function(use)
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
     -- Markdown
-    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+    --use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+    use "iamcco/markdown-preview.nvim"
 
     -- Leap
     use 'ggandor/leap.nvim'

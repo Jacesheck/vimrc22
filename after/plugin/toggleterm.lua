@@ -36,19 +36,19 @@ require('toggleterm').setup{
 function START_REACT()
     local Terminal = require('toggleterm.terminal').Terminal
     local back = Terminal:new{
-        dir = 'C:/Users/jaces/Desktop/Jarom/teacherbackend',
+        dir = 'C:/Users/jaces/Jarom/teacherbackend',
         cmd='npm run local',
         count = 2,
         close_on_exit = false,
     }
     local front = Terminal:new{
-        dir = 'C:/Users/jaces/Desktop/Jarom/teacherfrontend',
+        dir = 'C:/Users/jaces/Jarom/teacherfrontend',
         cmd='npm start',
         count = 3,
         close_on_exit = false,
     }
     local cypress = Terminal:new{
-        dir = 'C:/Users/jaces/Desktop/Jarom/teacherfrontend',
+        dir = 'C:/Users/jaces/Jarom/teacherfrontend',
         cmd='npx cypress open',
         count = 4,
         close_on_exit = false,
@@ -63,13 +63,13 @@ end
 function START_MANAGE()
     local Terminal = require('toggleterm.terminal').Terminal
     local back = Terminal:new{
-        dir = 'C:/Users/jaces/Desktop/Jarom/manageteacherbackend',
+        dir = 'C:/Users/jaces/Jarom/manageteacherbackend',
         cmd='npm run local',
         count = 2,
         close_on_exit = false,
     }
     local front = Terminal:new{
-        dir = 'C:/Users/jaces/Desktop/Jarom/manageteacherfrontend',
+        dir = 'C:/Users/jaces/Jarom/manageteacherfrontend',
         cmd='npm start',
         count = 3,
         close_on_exit = false,

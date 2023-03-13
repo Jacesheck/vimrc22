@@ -3,10 +3,10 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'tsserver',
-  'eslint',
-})
+--lsp.ensure_installed({
+--  'tsserver',
+--  'eslint',
+--})
 
 -- Fix Undefined global 'vim'
 lsp.configure('lua-language-server', {
@@ -48,8 +48,8 @@ lsp.set_preferences({
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
-  if client.name == "eslint" then
-      vim.cmd.LspStop('eslint')
+  if client.name == "eslint-lsp" then
+      vim.cmd.LspStop('eslint-lsp')
       return
   end
 

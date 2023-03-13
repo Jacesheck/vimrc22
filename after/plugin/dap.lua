@@ -36,3 +36,20 @@ dap.configurations.python = {
     }
 }
 
+dap.adapters.coreclr = {
+    type = 'executable',
+    command = 'C:/Users/jaces/netcoredbg/netcoredbg.exe',
+    args = {'--interpreter=vscode'}
+}
+
+dap.configurations.cs = {
+  {
+    type = "coreclr",
+    name = "launch - netcoredbg",
+    request = "launch",
+    console = "internalConsole",
+    program = function()
+        return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+    end,
+  },
+}
