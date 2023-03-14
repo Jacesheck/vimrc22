@@ -82,7 +82,7 @@ return require('packer').startup(function(use)
     use 'ggandor/leap.nvim'
 
     use 'metakirby5/codi.vim'
-    -- use {'stevearc/vim-arduino'}
-    --
+
     use 'AndrewRadev/linediff.vim'
+    --    use {'stevearc/vim-arduino'}
 end)
