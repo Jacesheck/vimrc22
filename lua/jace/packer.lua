@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use 'Djancyp/better-comments.nvim'
     use 'norcalli/nvim-colorizer.lua'
+    use 'nvim-treesitter/nvim-treesitter-context'
 
     -- Git
     use('tpope/vim-fugitive')
@@ -54,9 +55,11 @@ return require('packer').startup(function(use)
             {'rafamadriz/friendly-snippets'},
         }
     }
+    use 'simrat39/rust-tools.nvim'
 
     -- Auto-formatter
-    use 'dense-analysis/ale'
+    use 'jose-elias-alvarez/null-ls.nvim'
+
 
     -- Auto-pairs
     use {
@@ -79,7 +82,7 @@ return require('packer').startup(function(use)
     use 'ggandor/leap.nvim'
 
     use 'metakirby5/codi.vim'
-    --    use {'stevearc/vim-arduino'}
+    -- use {'stevearc/vim-arduino'}
     --
     use 'AndrewRadev/linediff.vim'
 end)

@@ -1,5 +1,6 @@
-vim.opt.signcolumn = 'yes'
+--vim.opt.signcolumn = 'yes'
 local lsp = require("lsp-zero")
+local lspconfig = require('lspconfig')
 
 lsp.preset("recommended")
 
@@ -9,16 +10,7 @@ lsp.preset("recommended")
 --})
 
 -- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
-
+lsp.nvim_workspace()
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -44,14 +36,8 @@ lsp.set_preferences({
         info = 'I'
     }
 })
-
-lsp.on_attach(function(client, bufnr)
+local on_attach = function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
-
-  if client.name == "eslint-lsp" then
-      vim.cmd.LspStop('eslint-lsp')
-      return
-  end
 
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -63,9 +49,74 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-end)
+end
+
+lsp.on_attach(on_attach)
+
+local null_ls = require('null-ls')
+
+null_ls.builtins.formatting.prettierd.with {
+    disabled_filetypes = { "markdown" },
+}
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.prettierd,
+        null_ls.builtins.formatting.csharpier,
+    };
+    on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                    --vim.lsp.buf.formatting_sync()
+                end,
+            })
+        end
+    end,
+})
+
+lsp.skip_server_setup({'rust_analyzer'})
+
+lspconfig.rust_analyzer.setup({
+    settings = {
+        ["rust-analyzer"] = {
+            cargo = { allFeatures = true },
+            checkOnSave = {
+                command = "clippy",
+                allFeatures = true
+            },
+        },
+    },
+})
 
 lsp.setup()
+
+local rust_tools = require('rust-tools')
+
+rust_tools.setup({
+    tools = {
+        autoSetHints = true,
+        hover_with_actions = true,
+        inlay_hints = {
+            show_parameter_hints = true
+        },
+    },
+    server = {
+        on_attach = on_attach,
+        ["rust-analyzer"] = {
+            cargo = { allFeatures = true },
+            checkOnSave = {
+                command = "clippy",
+                allFeatures = true
+            },
+        },
+    },
+})
 
 vim.diagnostic.config({
     virtual_text = true,
