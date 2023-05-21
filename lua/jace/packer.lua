@@ -84,5 +84,5 @@ return require('packer').startup(function(use)
     use 'metakirby5/codi.vim'
 
     use 'AndrewRadev/linediff.vim'
-    --    use {'stevearc/vim-arduino'}
+    --use {'stevearc/vim-arduino'}
 end)

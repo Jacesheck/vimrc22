@@ -36,7 +36,7 @@ lsp.set_preferences({
         info = 'I'
     }
 })
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -63,6 +63,9 @@ null_ls.setup({
     sources = {
         null_ls.builtins.formatting.prettierd,
         null_ls.builtins.formatting.csharpier,
+        null_ls.builtins.diagnostics.cpplint.with(
+            { args = { "--filter=-whitespace/braces,-legal/copyright", "$FILENAME"}}
+        ),
     };
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
