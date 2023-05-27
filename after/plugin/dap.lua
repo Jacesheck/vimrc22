@@ -1,6 +1,9 @@
 local dap = require('dap')
 
 vim.keymap.set("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))")
+vim.keymap.set("n", "<leader>B", function ()
+    dap.set_breakpoint(vim.fn.input("Breakpoint Condtion: "))
+end)
 vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, {})
 vim.keymap.set("n", "<leader>ds", dap.continue, {})
 vim.keymap.set("n", "<leader>di", dap.step_into, {})
