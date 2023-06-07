@@ -28,6 +28,8 @@ vim.opt.backup = false
 if vim.fn.has('win32') ~= 0 then
     vim.opt.undodir = os.getenv("UserProfile") .. "/.vim/undodir"
 else
-    vim.opt.undodir = "~/.vim/undodir"
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 end
 vim.opt.undofile = true
+
+vim.cmd("set colorcolumn=80,120")
