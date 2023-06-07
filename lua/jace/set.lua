@@ -12,6 +12,8 @@ if vim.fn.has('win32') == 1 then
     vim.opt.shell = 'powershell.exe'
 end
 
+vim.g.netrw_liststyle = 3 -- Tree style
+
 vim.opt.smartindent = true
 
 vim.opt.wrap = false
