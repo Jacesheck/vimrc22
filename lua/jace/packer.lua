@@ -24,7 +24,7 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use 'Djancyp/better-comments.nvim'
     use 'norcalli/nvim-colorizer.lua'
-    --use 'nvim-treesitter/nvim-treesitter-context'
+    use 'nvim-treesitter/nvim-treesitter-context'
 
     -- Git
     use('tpope/vim-fugitive')
