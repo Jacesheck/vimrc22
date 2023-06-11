@@ -63,9 +63,9 @@ null_ls.setup({
     sources = {
         null_ls.builtins.formatting.prettierd,
         null_ls.builtins.formatting.csharpier,
-        null_ls.builtins.diagnostics.cpplint.with(
-            { args = { "--filter=-whitespace/braces,-legal/copyright", "$FILENAME"}}
-        ),
+        --null_ls.builtins.diagnostics.cpplint.with(
+        --    { args = { "--filter=-whitespace/braces,-legal/copyright,-readability/braces", "$FILENAME"}}
+        --),
     };
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
