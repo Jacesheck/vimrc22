@@ -13,7 +13,7 @@ vim.keymap.set("n", "<leader>dr", dap.repl.open, {})
 vim.keymap.set("n", "<leader>dl", dap.run_last, {})
 vim.keymap.set("n", "<leader>dt", dap.terminate, {})
 
-vim.keymap.set("n", "<leader>dd", ":lua require'dapui'.toggle()<CR>")
+vim.keymap.set("n", "<leader>dd", ":lua require'dapui'.toggle()<CR>", {silent = true})
 
 require("dapui").setup()
 
@@ -33,6 +33,12 @@ dap.adapters.python = {
     args = {'-m', 'debugpy.adapter'};
 }
 
+dap.adapters.lldb = {
+    type = 'executable',
+    command = '/usr/bin/lldb-vscode-14',
+    name = 'lldb'
+}
+
 dap.configurations.python = {
     {
         type = 'python';
@@ -43,6 +49,37 @@ dap.configurations.python = {
         console = "integratedTerminal";
     }
 }
+
+dap.configurations.cpp = {
+    {
+        name = 'Launch',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+    }
+}
+
+require('dap.ext.vscode').load_launchjs(nil, { lldb = {'c', 'cpp'}})
+-- Sample launch.json
+--{
+--    "version": "0.2.0",
+--    "configurations": [
+--        {
+--            "name": "Launch",
+--            "type": "lldb",
+--            "request": "launch",
+--            "program": "test.out",
+--            "cwd": "${workspaceFolder}",
+--            "stopOnEntry": false,
+--            "args": {}
+--        }
+--    ]
+--}
 
 dap.adapters.coreclr = {
     type = 'executable';
