@@ -12,6 +12,12 @@ vim.keymap.set("n", "<leader>dq", dap.step_out, {})
 vim.keymap.set("n", "<leader>dr", dap.repl.open, {})
 vim.keymap.set("n", "<leader>dl", dap.run_last, {})
 vim.keymap.set("n", "<leader>dt", dap.terminate, {})
+vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+        require('dap.ui.widgets').hover()
+    end)
+vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+        require('dap.ui.widgets').preview()
+    end)
 
 vim.keymap.set("n", "<leader>dd", ":lua require'dapui'.toggle()<CR>", {silent = true})
 
