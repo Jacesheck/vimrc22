@@ -41,7 +41,7 @@ dap.adapters.python = {
 
 dap.adapters.lldb = {
     type = 'executable',
-    command = '/usr/bin/lldb-vscode-14',
+    command = '/usr/bin/lldb-vscode',
     name = 'lldb'
 }
 
