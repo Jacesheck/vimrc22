@@ -4,11 +4,6 @@ local lspconfig = require('lspconfig')
 
 lsp.preset("recommended")
 
---lsp.ensure_installed({
---  'tsserver',
---  'eslint',
---})
-
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
 
@@ -95,6 +90,10 @@ lspconfig.rust_analyzer.setup({
             },
         },
     },
+})
+
+lspconfig.hls.setup({
+    filetypes={'haskell', 'lhaskell', 'cabal'}
 })
 
 lsp.setup()

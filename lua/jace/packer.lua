@@ -68,22 +68,16 @@ return require('packer').startup(function(use)
     }
     use "windwp/nvim-ts-autotag"
 
-    -- Toggleterm
-    use {"akinsho/toggleterm.nvim", tag = '*'}
-
     -- Debugging
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-    --use 'puremourning/vimspector'
 
     -- Markdown
     --use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
     use "iamcco/markdown-preview.nvim"
 
-    -- Leap
-    use 'ggandor/leap.nvim'
-
-    use 'metakirby5/codi.vim'
-
+    -- Diff
     use 'AndrewRadev/linediff.vim'
-    --use {'stevearc/vim-arduino'}
+
+    -- LaTeX
+    use {'xuhdev/vim-latex-live-preview'}
 end)
