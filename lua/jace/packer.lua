@@ -61,14 +61,6 @@ return require('packer').startup(function(use)
     -- Auto-formatter
     use 'jose-elias-alvarez/null-ls.nvim'
 
-
-    -- Auto-pairs
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    }
-    use "windwp/nvim-ts-autotag"
-
     -- Debugging
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
@@ -80,5 +72,5 @@ return require('packer').startup(function(use)
     use 'AndrewRadev/linediff.vim'
 
     -- LaTeX
-    use {'xuhdev/vim-latex-live-preview'}
+    --use {'xuhdev/vim-latex-live-preview'}
 end)
