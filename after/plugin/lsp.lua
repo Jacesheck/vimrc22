@@ -78,8 +78,6 @@ null_ls.setup({
     end,
 })
 
-lsp.skip_server_setup({'rust_analyzer'})
-
 lspconfig.rust_analyzer.setup({
     settings = {
         ["rust-analyzer"] = {
