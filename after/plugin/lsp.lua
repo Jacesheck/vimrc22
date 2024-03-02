@@ -120,3 +120,24 @@ rust_tools.setup({
 vim.diagnostic.config({
     virtual_text = true,
 })
+
+--vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+--    pattern = { "*.py" },
+--    callback = function()
+--        vim.lsp.start({
+--            name = 'avt-language-server',
+--            cmd = { "python", "avt-server.py" },
+--            root_dir = vim.fs.dirname(vim.fs.find({ 'setup.py' }, { upward = true })[1]),
+--        })
+--    end
+--})
+
+
+--augroup AVTLanguageServer
+--au!
+--autocmd User lsp_setup call lsp#register_server({
+--    \ 'name': 'hello-world-pygls-example',
+--    \ 'cmd': {server_info->['python', 'path-to-hello-world-example/main.py']},
+--    \ 'allowlist': ['*']
+--    \ }})
+--augroup END
