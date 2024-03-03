@@ -10,6 +10,8 @@ vim.opt.hlsearch = true
 vim.opt.cindent = true
 if vim.fn.has('win32') == 1 then
     vim.opt.shell = 'powershell.exe'
+else
+    vim.opt.shell = "bash"
 end
 
 --vim.g.netrw_liststyle = 3 -- Tree style

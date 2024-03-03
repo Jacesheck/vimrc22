@@ -1,6 +1,7 @@
 require("jace.packer")
 require("jace.set")
 require("jace.remap")
+require("jace.functions")
 require("mason").setup()
 
 local function configure_debuggers()

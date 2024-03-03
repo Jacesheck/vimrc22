@@ -1,9 +1,8 @@
 vim.keymap.set("n","<leader>pv", vim.cmd.Ex)
 
---vim.keymap.set("i","jk", "<Esc>")
---vim.keymap.set("i","Jk", "<Esc>")
---vim.keymap.set("i","jK", "<Esc>")
---vim.keymap.set("i","JK", "<Esc>")
+--
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>");
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>");
 
 -- Move selected
 vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
