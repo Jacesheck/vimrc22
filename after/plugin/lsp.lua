@@ -38,8 +38,8 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
   vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>pr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
@@ -124,16 +124,17 @@ vim.diagnostic.config({
 
 vim.lsp.set_log_level("off")
 
---vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
---    pattern = { "*.py" },
---    callback = function()
---        vim.lsp.start({
---            name = 'avt-language-server',
---            cmd = { "python", "avt-server.py" },
---            root_dir = vim.fs.dirname(vim.fs.find({ 'setup.py' }, { upward = true })[1]),
---        })
---    end
---})
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+    pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
+    callback = function()
+        local path = "/home/j.denny/avt/linter/avt-language-server.py"
+        vim.lsp.start({
+            name = 'avt-language-server',
+            cmd = { "python", path},
+            root_dir = vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]),
+        })
+    end
+})
 
 
 --augroup AVTLanguageServer

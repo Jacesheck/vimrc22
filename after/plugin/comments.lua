@@ -1,25 +1,9 @@
-require('better-comment').Setup({
-    tags = {
-        {
-            name = "TODO",
-            fg = "white",
-            bg = "#0a7aca",
-            bold = true,
-            virtual_text = "",
-        },
-        {
-            name = "FIX",
-            fg = "white",
-            bg = "#f44747",
-            bold = true,
-            virtual_text = "",
-        },
-        {
-            name = "WARNING",
-            fg = "#FFA500",
-            bg = "",
-            bold = false,
-            virtual_text = "",
-        }
-    }
-})
+--require('todo-comments').setup()
+
+vim.keymap.set("n", "]t", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
