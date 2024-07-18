@@ -39,10 +39,10 @@ dap.adapters.python = {
     args = {'-m', 'debugpy.adapter'};
 }
 
-dap.adapters.lldb = {
+dap.adapters.cppdbg = {
+    id = 'cppdbg',
     type = 'executable',
-    command = '/usr/bin/lldb-vscode',
-    name = 'lldb'
+    command = 'OpenDebugAD7'
 }
 
 dap.configurations.python = {
@@ -59,7 +59,7 @@ dap.configurations.python = {
 dap.configurations.cpp = {
     {
         name = 'Launch',
-        type = 'lldb',
+        type = 'cppdbg',
         request = 'launch',
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -70,7 +70,7 @@ dap.configurations.cpp = {
     }
 }
 
-require('dap.ext.vscode').load_launchjs(nil, { lldb = {'c', 'cpp'}})
+require('dap.ext.vscode').load_launchjs(nil, { cppdbg = {'c', 'cpp'}})
 -- Sample launch.json
 --{
 --    "version": "0.2.0",
