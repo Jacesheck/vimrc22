@@ -1,3 +1,4 @@
+--- Switch cases
 local function switch_case()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     local word = vim.fn.expand('<cword>')
@@ -26,29 +27,35 @@ local function switch_case()
         end
     end
 
+    local function non_lsp_change()
+        local action = vim.fn.input("Change all (y|n|c)? ")
+        if action == "y" then
+            vim.cmd("%s/\\<" .. word .. "\\>/" .. new_word .. "/gc")
+            vim.api.nvim_win_set_cursor(0, {line, col});
+        elseif action == "n" then
+            vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { new_word })
+        end
+    end
+
     if client_attached then
         vim.lsp.buf_request(0,
             'textDocument/documentHighlight',
             vim.lsp.util.make_position_params(),
             function(err, result, _, _)
                 local is_lsp_word = false
-                if not err and result and #result > 0 then
+                if not err and result and #result > 1 then
                     is_lsp_word = true
                 end
                 -- replace
                 if is_lsp_word then
                     vim.lsp.buf.rename(new_word)
                 else
-                    vim.cmd("%s/\\<" .. word .. "\\>/" .. new_word .. "/g")
-                    vim.api.nvim_win_set_cursor(0, {line, col});
-                    --vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { camel_case_word })
+                    non_lsp_change()
                 end
             end)
     else
-        vim.cmd("%s/\\<" .. word .. "\\>/" .. new_word .. "/g")
-        vim.api.nvim_win_set_cursor(0, {line, col});
+        non_lsp_change()
     end
 end
 
 vim.keymap.set("n", "<leader>sc", switch_case);
-return {switch_case, switch_case}
