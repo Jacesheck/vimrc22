@@ -95,6 +95,16 @@ lspconfig.hls.setup({
     filetypes={'haskell', 'lhaskell', 'cabal'}
 })
 
+lspconfig.lua_ls.setup({
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {"vim", "ui", "gc", "tasksuite"}
+            }
+        }
+    }
+})
+
 lsp.setup()
 
 local rust_tools = require('rust-tools')
@@ -124,16 +134,20 @@ vim.diagnostic.config({
 
 vim.lsp.set_log_level("off")
 
+local function StartAvtLsp()
+    local path = "/home/j.denny/avt/linter/avt_language_server.py"
+    vim.lsp.start({
+        name = 'avt-language-server',
+        cmd = { "python", path},
+        root_dir = vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]),
+    })
+end
+
+vim.api.nvim_create_user_command("StartAvtLsp", StartAvtLsp, {})
+
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
-    callback = function()
-        local path = "/home/j.denny/avt/linter/avt-language-server.py"
-        vim.lsp.start({
-            name = 'avt-language-server',
-            cmd = { "python", path},
-            root_dir = vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]),
-        })
-    end
+    callback = StartAvtLsp
 })
 
 

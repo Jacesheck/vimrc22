@@ -1,3 +1,3 @@
-vim.cmd("colo terafox")
+vim.cmd("colo carbonfox")
 
 require('colorizer').setup()

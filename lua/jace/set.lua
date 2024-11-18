@@ -14,6 +14,8 @@ else
     vim.opt.shell = "bash"
 end
 
+vim.opt.path = "**"
+
 --vim.g.netrw_liststyle = 3 -- Tree style
 
 vim.opt.smartindent = true
