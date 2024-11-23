@@ -32,5 +32,7 @@ function Stringify(data, indent)
         end
         ind = string.sub(ind, 0, string.len(ind) - 2)
         print(ind .. "}")
+    else
+        print(ind .. type(data))
     end
 end
