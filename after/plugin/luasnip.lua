@@ -43,9 +43,6 @@ ls.config.set_config({
 
 function DoxygenSnippet()
     local cursor = vim.api.nvim_win_get_cursor(0)
-    cursor[1] = cursor[1] + 2
-    cursor[2] = cursor[2] + 2
-    print("Check " .. cursor[1] .. " " .. cursor[2])
     local node = vim.treesitter.get_node({ pos = cursor });
 
     local function_types = {
@@ -54,15 +51,10 @@ function DoxygenSnippet()
         function_definition = true,
     }
 
-    --if node:type() == "translation_unit" then
-    --    print("Is translation_unit")
-    --end
-
     while not function_types[node:type()] do
         -- Error likely means couldn't find parent
         node = node:parent();
     end
-    print(node:start() .. " " .. node:type())
 
     -- Query to capture return type and params
     local query_str = [[
@@ -85,6 +77,7 @@ function DoxygenSnippet()
 ]
     ]]
 
+    -- Query params and return val
     local has_return = false
     local params = {}
     local query = vim.treesitter.query.parse("cpp", query_str)
@@ -105,21 +98,30 @@ function DoxygenSnippet()
     local sn = ls.snippet_node
     local fmta = require("luasnip.extras.fmt").fmta
 
-    local insert_nodes = {}
+    -- Create snippet
     local num = 0
-    local final_str = ""
+    local insert_nodes = { }
+    local final_str = "/** @brief <>\n"
     for _, param in ipairs(params) do
         num = num + 1
-        final_str = final_str .. " *  @param " .. param .. " <>\n\t"
+        final_str = final_str .. " *  @param " .. param .. " <>\n"
         table.insert(insert_nodes, i(num))
     end
     if has_return then
         num = num + 1
-        final_str = final_str .. " *  @return <>\n\t"
+        final_str = final_str .. " *  @return <>\n"
         table.insert(insert_nodes, i(num))
     end
+    num = num + 1
+    final_str = final_str .. " */"
+    table.insert(insert_nodes, 1, i(num))
 
-    return sn(nil, fmta(final_str, insert_nodes))
+    print(#params .. " " .. tostring(has_return))
+    if #params > 0 or has_return == true then
+        return sn(nil, fmta(final_str, insert_nodes))
+    else
+        return sn(nil, fmta("/// @brief <>", { i(0) }))
+    end
 end
 
 vim.keymap.set("n", "<leader>pi",
