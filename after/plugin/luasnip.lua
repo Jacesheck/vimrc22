@@ -29,6 +29,7 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 	end
 end, {silent = true})
 
+ls.cleanup()
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
 
@@ -36,54 +37,96 @@ ls.config.set_config({
     enable_autosnippets = true,
 })
 
--- TODO: Figure out how to get param names and possible return val
---       using treesitter
-function DoxygenSnippet()
-    local node = vim.treesitter.get_node();
-    local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+-- Namespace: (declaration)
+-- Class: (field_declaration)
+-- None: (function_definition | declaration)
 
-    --local func_node = nil
-    --for child in node:iter_children() do
-    --    local row, _, _ = child:start()
-    --    func_node = child
-    --    print(child:start() .. " " .. child:type())
-    --    if row > cursor_line + 1 and
-    --        (child:type() == "function_definition" or
-    --        child:type() == "function_declarator") then
-    --        break
-    --    end
+function DoxygenSnippet()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    cursor[1] = cursor[1] + 2
+    cursor[2] = cursor[2] + 2
+    print("Check " .. cursor[1] .. " " .. cursor[2])
+    local node = vim.treesitter.get_node({ pos = cursor });
+
+    local function_types = {
+        declaration = true,
+        field_declaration = true,
+        function_definition = true,
+    }
+
+    --if node:type() == "translation_unit" then
+    --    print("Is translation_unit")
     --end
 
-    local type_node = func_node:field("type")[1]
-    local return_type_name = ts_utils.get_node_text(type_node, 0)[1]
+    while not function_types[node:type()] do
+        -- Error likely means couldn't find parent
+        node = node:parent();
+    end
+    print(node:start() .. " " .. node:type())
 
-    local sn = ls.snippet_node
-    local i = ls.insert_node
-    local fmta = require("luasnip.extras.fmt").fmta
+    -- Query to capture return type and params
+    local query_str = [[
+[
+ (declaration type: (_) @ret
+              declarator: ((function_declarator
+                parameters: (parameter_list
+                  (parameter_declaration
+                    declarator: (_) @params))?)))
+ (field_declaration type: (_) @ret
+                    declarator: (function_declarator
+                      parameters: (parameter_list
+                        (parameter_declaration
+                          declarator: (_) @params))?))
+ (function_definition type: (_) @ret
+                      declarator: (function_declarator
+                        parameters: (parameter_list
+                          (parameter_declaration
+                            declarator: (_) @params))?))
+]
+    ]]
 
-    local params = ""
-    local insert_nodes = {}
-    local decl_node = func_node:field("declarator")[1]
-    local params_node = decl_node:field("parameters")[1]
-    local num = 0
-    for param in params_node:iter_children() do
-        local param_node = param:field("declarator")[1]
-        local param_name = ts_utils.get_node_text(param_node, 0)[1]
-        if param_name ~= nil then
-            num = num + 1
-            params = params .. " * param " .. param_name .. " <>\n"
-            table.insert(insert_nodes, i(num))
+    local has_return = false
+    local params = {}
+    local query = vim.treesitter.query.parse("cpp", query_str)
+    for id, n in query:iter_captures(node) do
+        if query.captures[id] == "ret" then
+            local ret_type = ts_utils.get_node_text(n, 0)[1]
+            print("Return type " .. ret_type)
+            if ret_type ~= "void" then
+                has_return = true
+            end
+        elseif query.captures[id] == "params" then
+            local param_name = ts_utils.get_node_text(n, 0)[1]
+            table.insert(params, param_name)
         end
     end
-    if return_type_name ~= "void" then
+
+    local i = ls.insert_node
+    local sn = ls.snippet_node
+    local fmta = require("luasnip.extras.fmt").fmta
+
+    local insert_nodes = {}
+    local num = 0
+    local final_str = ""
+    for _, param in ipairs(params) do
         num = num + 1
-        params = params .. " * return <>\n"
+        final_str = final_str .. " *  @param " .. param .. " <>\n\t"
         table.insert(insert_nodes, i(num))
     end
-    return sn(nil, fmta(params, insert_nodes))
+    if has_return then
+        num = num + 1
+        final_str = final_str .. " *  @return <>\n\t"
+        table.insert(insert_nodes, i(num))
+    end
+
+    return sn(nil, fmta(final_str, insert_nodes))
 end
 
-vim.keymap.set("n", "<leader>pi", DoxygenSnippet);
+vim.keymap.set("n", "<leader>pi",
+function()
+    vim.cmd("so ~/.config/nvim/after/plugin/luasnip.lua")
+    DoxygenSnippet()
+end);
 
 
 cmp.setup({
