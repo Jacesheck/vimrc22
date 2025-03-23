@@ -9,25 +9,25 @@ local cmp = require("cmp")
 local ts_utils = require("nvim-treesitter.ts_utils")
 
 -- Expand or jump
-vim.keymap.set({"i"}, "<c-k>", function()
+vim.keymap.set({"i"}, "<c-l>", function()
     if ls.expand_or_jumpable() then
         ls.expand_or_jump()
     end
 end, {silent = true})
 
--- Jump back
-vim.keymap.set({"i", "s"}, "<c-j>", function()
-    if ls.jumpable(-1) then
-        ls.jump(-1)
-    end
-end, {silent = true})
-
--- Change choice
-vim.keymap.set({"i", "s"}, "<C-E>", function()
-	if ls.choice_active() then
-            ls.change_choice(1)
-	end
-end, {silent = true})
+---- Jump back
+--vim.keymap.set({"i", "s"}, "<c-j>", function()
+--    if ls.jumpable(-1) then
+--        ls.jump(-1)
+--    end
+--end, {silent = true})
+--
+---- Change choice
+--vim.keymap.set({"i", "s"}, "<C-E>", function()
+--	if ls.choice_active() then
+--            ls.change_choice(1)
+--	end
+--end, {silent = true})
 
 ls.cleanup()
 require("luasnip.loaders.from_vscode").lazy_load()

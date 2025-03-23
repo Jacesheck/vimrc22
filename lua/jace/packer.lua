@@ -36,7 +36,6 @@ return require('packer').startup(function(use)
         end
     }
     use 'norcalli/nvim-colorizer.lua'
-    --use 'nvim-treesitter/nvim-treesitter-context'
 
     -- Git
     use('tpope/vim-fugitive')

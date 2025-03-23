@@ -145,7 +145,7 @@ end
 
 vim.api.nvim_create_user_command("StartAvtLsp", StartAvtLsp, {})
 
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+vim.api.nvim_create_autocmd({"BufNew"}, {
     pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
     callback = StartAvtLsp
 })
