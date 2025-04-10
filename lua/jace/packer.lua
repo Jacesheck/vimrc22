@@ -50,17 +50,11 @@ return require('packer').startup(function(use)
         requires = {
             -- LSP Support
             {'neovim/nvim-lspconfig'},
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-nvim-lsp'},
+
             {'williamboman/mason.nvim'},
             {'williamboman/mason-lspconfig.nvim'},
-
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
-
             -- Snippets
             {'L3MON4D3/LuaSnip'},
             {'rafamadriz/friendly-snippets'},
@@ -74,9 +68,9 @@ return require('packer').startup(function(use)
     -- Debugging
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
 
-    -- Markdown
-    --use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
-    use "iamcco/markdown-preview.nvim"
+    ---- Markdown
+    ----use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+    --use "iamcco/markdown-preview.nvim"
 
     -- Diff
     use 'AndrewRadev/linediff.vim'
