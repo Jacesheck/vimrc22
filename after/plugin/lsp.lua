@@ -109,16 +109,14 @@ local function StartAvtLsp()
     local path = "/home/j.denny/avt/linter/avt_language_server.py"
     vim.lsp.start({
         name = 'avt-language-server',
-        cmd = { "python", path},
+        cmd = { "python", path },
         root_dir = vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]),
     })
 end
 
--- TODO: Put this bac in
--- https://lsp-zero.netlify.app/docs/guide/integrate-with-mason-nvim.html
---vim.api.nvim_create_user_command("StartAvtLsp", StartAvtLsp, {})
---
---vim.api.nvim_create_autocmd({"BufNew"}, {
---    pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
---    callback = StartAvtLsp
---})
+vim.api.nvim_create_user_command("StartAvtLsp", StartAvtLsp, {})
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+    pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
+    callback = StartAvtLsp
+})
