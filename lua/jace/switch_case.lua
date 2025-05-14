@@ -20,6 +20,7 @@ local function switch_case()
         print("Not a snake_case or camelCase word")
     end
 
+    -- TODO: Get rid of
     local client_attached = false
     for client, _ in pairs(vim.lsp.get_clients()) do
         if vim.lsp.buf_is_attached(0, client) then

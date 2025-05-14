@@ -66,15 +66,9 @@ lspconfig.hls.setup({
     filetypes={'haskell', 'lhaskell', 'cabal'}
 })
 
---lspconfig.lua_ls.setup({
---    settings = {
---        Lua = {
---            diagnostics = {
---                globals = {"vim", "ui", "gc", "tasksuite"}
---            }
---        }
---    }
---})
+lspconfig.gleam.setup({
+    cmd={ "gleam", "lsp" }
+})
 
 lsp.setup()
 
