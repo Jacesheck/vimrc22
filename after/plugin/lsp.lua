@@ -107,6 +107,13 @@ vim.lsp.set_log_level("off")
 
 local function StartAvtLsp()
     local path = "/home/j.denny/avt/linter/avt_language_server.py"
+    local function file_exists(name)
+        local f=io.open(name,"r")
+        if f~=nil then io.close(f) return true else return false end
+    end
+
+    if not file_exists(path) then return end
+
     vim.lsp.start({
         name = 'avt-language-server',
         cmd = { "python", path },
