@@ -1,11 +1,11 @@
 local on_attach = function(_, bufnr)
-    print("on_attach")
-    local opts = {buffer = bufnr, remap = false}
+    local opts = {buffer = 0, remap = false}
 
+    vim.keymap.set("n", "K", function() vim.lsp.buf.hover{border='rounded'} end, opts)
     vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.jump({float=true, count=1}) end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.jump({float=true, count=-1}) end, opts)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.jump{float=true, count=1} end, opts)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.jump{float=true, count=-1} end, opts)
 end
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()

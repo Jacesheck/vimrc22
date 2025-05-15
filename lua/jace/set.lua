@@ -14,8 +14,6 @@ else
     vim.opt.shell = "bash"
 end
 
-vim.opt.winborder = "rounded"
-
 vim.opt.path = "**"
 
 --vim.g.netrw_liststyle = 3 -- Tree style
