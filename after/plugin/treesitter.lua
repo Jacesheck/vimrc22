@@ -40,7 +40,3 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require'nvim-treesitter.install'.compilers = { "clang" }
-
-require'treesitter-context'.setup{
-    max_lines = 3
-}
