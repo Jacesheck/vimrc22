@@ -29,9 +29,6 @@ vim.lsp.config('lua_ls', {
     capabilities = lsp_capabilities,
     settings = {
         Lua = {
-            runtime = {
-                version = 'LuaJIT'
-            },
             diagnostics = {
                 globals = {'vim', 'gc', 'ui', 'tasksuite'},
             },
