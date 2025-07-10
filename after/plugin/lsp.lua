@@ -63,3 +63,28 @@ cmp.setup({
         end,
     },
 })
+
+------------ AVT LSP ---------------
+
+local function StartAvtLsp()
+    local path = "/home/j.denny/avt/linter/avt_language_server.py"
+    local function file_exists(name)
+        local f=io.open(name,"r")
+        if f~=nil then io.close(f) return true else return false end
+    end
+
+    if not file_exists(path) then return end
+
+    vim.lsp.start({
+        name = 'avt-language-server',
+        cmd = { "python", path },
+        root_dir = vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]),
+    })
+end
+
+vim.api.nvim_create_user_command("StartAvtLsp", StartAvtLsp, {})
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+    pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
+    callback = StartAvtLsp
+})
