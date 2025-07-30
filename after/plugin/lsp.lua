@@ -41,6 +41,25 @@ vim.lsp.config('lua_ls', {
     }
 })
 
+vim.lsp.config('lua_ls', {
+    on_attach = function() print("lua_ls") on_attach() end,
+    capabilities = lsp_capabilities,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {'vim', 'gc', 'ui', 'tasksuite'},
+            },
+            workspace = {
+                library = {
+                    vim.env.VIMRUNTIME,
+                }
+            }
+        }
+    }
+})
+
+vim.lsp.enable('ocamllsp')
+
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
