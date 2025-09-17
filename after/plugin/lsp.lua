@@ -1,6 +1,7 @@
 local on_attach = function(_, bufnr)
     local opts = {buffer = 0, remap = false}
 
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- default doesn't work
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover{border='rounded'} end, opts)
     vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
