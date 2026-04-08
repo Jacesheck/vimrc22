@@ -1,20 +1,7 @@
 local builtin = require('telescope.builtin')
 
-local current_dir = vim.fn.getcwd()
-print(current_dir)
-local is_dotfiles = string.find(current_dir, "dotfiles")
-
-if is_dotfiles then
-    vim.keymap.set('n', '<leader>pg', function()
-            builtin.live_grep({search_dirs={"tilde/.*", ".config"}})
-        end, {})
-    vim.keymap.set('n', '<leader>pf', function()
-            builtin.find_files({search_dirs={"tilde/.*", ".config"}})
-        end, {})
-else
-    vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
-    vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-end
+vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
 --vim.keymap.set('n', '<leader>pr', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>pa', function()
     builtin.grep_string({ word_match = "-w" })
