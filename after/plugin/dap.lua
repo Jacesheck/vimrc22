@@ -76,7 +76,7 @@ dap.configurations.cpp = {
     }
 }
 
-require('dap.ext.vscode').load_launchjs(nil, { cppdbg = {'c', 'cpp'}})
+--require('dap.ext.vscode').load_launchjs(nil, { cppdbg = {'c', 'cpp'}})
 -- Sample launch.json
 --{
 --    "version": "0.2.0",

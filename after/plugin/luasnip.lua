@@ -6,7 +6,7 @@ end
 
 local ls = require("luasnip")
 local cmp = require("cmp")
-local ts_utils = require("nvim-treesitter.ts_utils")
+--local ts_utils = require("nvim-treesitter.ts_utils")
 
 -- Expand or jump
 vim.keymap.set({"i"}, "<c-l>", function()
@@ -41,88 +41,88 @@ ls.config.set_config({
 -- Class: (field_declaration)
 -- None: (function_definition | declaration)
 
-function DoxygenSnippet()
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    local node = vim.treesitter.get_node({ pos = cursor });
-
-    local function_types = {
-        declaration = true,
-        field_declaration = true,
-        function_definition = true,
-    }
-
-    while not function_types[node:type()] do
-        -- Error likely means couldn't find parent
-        node = node:parent();
-    end
-
-    -- Query to capture return type and params
-    local query_str = [[
-[
- (declaration type: (_) @ret
-              declarator: ((function_declarator
-                parameters: (parameter_list
-                  (parameter_declaration
-                    declarator: (_) @params))?)))
- (field_declaration type: (_) @ret
-                    declarator: (function_declarator
-                      parameters: (parameter_list
-                        (parameter_declaration
-                          declarator: (_) @params))?))
- (function_definition type: (_) @ret
-                      declarator: (function_declarator
-                        parameters: (parameter_list
-                          (parameter_declaration
-                            declarator: (_) @params))?))
-]
-    ]]
-
-    -- Query params and return val
-    local has_return = false
-    local params = {}
-    local query = vim.treesitter.query.parse("cpp", query_str)
-    for id, n in query:iter_captures(node) do
-        if query.captures[id] == "ret" then
-            local ret_type = ts_utils.get_node_text(n, 0)[1]
-            print("Return type " .. ret_type)
-            if ret_type ~= "void" then
-                has_return = true
-            end
-        elseif query.captures[id] == "params" then
-            local param_name = ts_utils.get_node_text(n, 0)[1]
-            table.insert(params, param_name)
-        end
-    end
-
-    local i = ls.insert_node
-    local sn = ls.snippet_node
-    local fmta = require("luasnip.extras.fmt").fmta
-
-    -- Create snippet
-    local num = 0
-    local insert_nodes = { }
-    local final_str = "/** @brief <>\n"
-    for _, param in ipairs(params) do
-        num = num + 1
-        final_str = final_str .. " *  @param " .. param .. " <>\n"
-        table.insert(insert_nodes, i(num))
-    end
-    if has_return then
-        num = num + 1
-        final_str = final_str .. " *  @return <>\n"
-        table.insert(insert_nodes, i(num))
-    end
-    num = num + 1
-    final_str = final_str .. " */"
-    table.insert(insert_nodes, 1, i(num))
-
-    print(#params .. " " .. tostring(has_return))
-    if #params > 0 or has_return == true then
-        return sn(nil, fmta(final_str, insert_nodes))
-    else
-        return sn(nil, fmta("/// @brief <>", { i(0) }))
-    end
-end
+--function DoxygenSnippet()
+--    local cursor = vim.api.nvim_win_get_cursor(0)
+--    local node = vim.treesitter.get_node({ pos = cursor });
+--
+--    local function_types = {
+--        declaration = true,
+--        field_declaration = true,
+--        function_definition = true,
+--    }
+--
+--    while not function_types[node:type()] do
+--        -- Error likely means couldn't find parent
+--        node = node:parent();
+--    end
+--
+--    -- Query to capture return type and params
+--    local query_str = [[
+--[
+-- (declaration type: (_) @ret
+--              declarator: ((function_declarator
+--                parameters: (parameter_list
+--                  (parameter_declaration
+--                    declarator: (_) @params))?)))
+-- (field_declaration type: (_) @ret
+--                    declarator: (function_declarator
+--                      parameters: (parameter_list
+--                        (parameter_declaration
+--                          declarator: (_) @params))?))
+-- (function_definition type: (_) @ret
+--                      declarator: (function_declarator
+--                        parameters: (parameter_list
+--                          (parameter_declaration
+--                            declarator: (_) @params))?))
+--]
+--    ]]
+--
+--    -- Query params and return val
+--    local has_return = false
+--    local params = {}
+--    local query = vim.treesitter.query.parse("cpp", query_str)
+--    for id, n in query:iter_captures(node) do
+--        if query.captures[id] == "ret" then
+--            local ret_type = ts_utils.get_node_text(n, 0)[1]
+--            print("Return type " .. ret_type)
+--            if ret_type ~= "void" then
+--                has_return = true
+--            end
+--        elseif query.captures[id] == "params" then
+--            local param_name = ts_utils.get_node_text(n, 0)[1]
+--            table.insert(params, param_name)
+--        end
+--    end
+--
+--    local i = ls.insert_node
+--    local sn = ls.snippet_node
+--    local fmta = require("luasnip.extras.fmt").fmta
+--
+--    -- Create snippet
+--    local num = 0
+--    local insert_nodes = { }
+--    local final_str = "/** @brief <>\n"
+--    for _, param in ipairs(params) do
+--        num = num + 1
+--        final_str = final_str .. " *  @param " .. param .. " <>\n"
+--        table.insert(insert_nodes, i(num))
+--    end
+--    if has_return then
+--        num = num + 1
+--        final_str = final_str .. " *  @return <>\n"
+--        table.insert(insert_nodes, i(num))
+--    end
+--    num = num + 1
+--    final_str = final_str .. " */"
+--    table.insert(insert_nodes, 1, i(num))
+--
+--    print(#params .. " " .. tostring(has_return))
+--    if #params > 0 or has_return == true then
+--        return sn(nil, fmta(final_str, insert_nodes))
+--    else
+--        return sn(nil, fmta("/// @brief <>", { i(0) }))
+--    end
+--end
 
 vim.keymap.set("n", "<leader>pi",
 function()
