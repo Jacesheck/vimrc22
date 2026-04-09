@@ -39,7 +39,7 @@ return require('packer').startup(function(use)
             }
         end
     }
-    use 'norcalli/nvim-colorizer.lua'
+    use 'catgoose/nvim-colorizer.lua'
 
     -- Git
     use('tpope/vim-fugitive')
