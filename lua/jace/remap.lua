@@ -26,3 +26,6 @@ vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set("n", "<leader>tc", vim.cmd.tabc)
 vim.keymap.set("n", "<leader>to", vim.cmd.tabo)
 vim.keymap.set("n", "<leader>tt", "<cmd>tab split<CR>")
+
+-- Tmux
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
