@@ -1,10 +1,10 @@
 --Treesitter features for installed languages need to be enabled manually in a
 --|FileType| autocommand or |ftplugin|, e.g. >lua
 vim.api.nvim_create_autocmd('FileType', {
-pattern = { 'cpp', 'hpp' },
+pattern = { '*' },
 callback = function()
   -- syntax highlighting, provided by Neovim
-  vim.treesitter.start()
+  pcall(vim.treesitter.start)
   -- folds, provided by Neovim
   --vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   --vim.wo.foldmethod = 'expr'
@@ -13,4 +13,4 @@ callback = function()
 end,
 })
 
-require('nvim-treesitter').install { 'cpp' }
+require('nvim-treesitter').install { 'python', 'cpp' }
