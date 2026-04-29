@@ -1,10 +1,46 @@
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
+SEARCH_TESTS = false
+
+local test_patterns = {
+    "!**/test_*.*",
+    "!**/*doctest.*"
+}
+
+vim.keymap.set('n', '<leader>pf', function ()
+    if SEARCH_TESTS then
+        builtin.find_files()
+    else
+        builtin.find_files{ find_command = {
+            "fd",
+            "-E", test_patterns[1],
+            "-E", test_patterns[2]
+        }}
+    end
+end, {})
+vim.keymap.set('n', '<leader>pg', function ()
+    if SEARCH_TESTS then
+        builtin.live_grep()
+    else
+        builtin.live_grep{ glob_pattern = test_patterns }
+    end
+end, {})
 --vim.keymap.set('n', '<leader>pr', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>pa', function()
-    builtin.grep_string({ word_match = "-w" })
+    if SEARCH_TESTS then
+        builtin.grep_string({ word_match = "-w" })
+    else
+        builtin.grep_string({
+            word_match = "-w",
+            additional_args = function ()
+                local ret = {}
+                for _,v in ipairs(test_patterns) do
+                    table.insert(ret, "--glob=" .. v)
+                end
+                return ret
+            end
+        })
+    end
 end, {})
 vim.keymap.set('n', '<C-p>f', builtin.git_files, {})
 
