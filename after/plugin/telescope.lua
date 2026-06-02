@@ -7,17 +7,8 @@ local test_patterns = {
     "!**/*doctest.*"
 }
 
-vim.keymap.set('n', '<leader>pf', function ()
-    if SEARCH_TESTS then
-        builtin.find_files()
-    else
-        builtin.find_files{ find_command = {
-            "fd",
-            "-E", test_patterns[1],
-            "-E", test_patterns[2]
-        }}
-    end
-end, {})
+vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+
 vim.keymap.set('n', '<leader>pg', function ()
     if SEARCH_TESTS then
         builtin.live_grep()
