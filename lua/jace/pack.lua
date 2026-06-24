@@ -50,6 +50,6 @@ vim.pack.add({
     'https://github.com/AndrewRadev/linediff.vim',
 
     -- LaTeX
-    'https://github.com/xuhdev/vim-latex-live-preview',
+    --'https://github.com/xuhdev/vim-latex-live-preview',
 })
 
