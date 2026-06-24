@@ -1,4 +1,4 @@
-require("jace.packer")
+require("jace.pack")
 require("jace.set")
 require("jace.remap")
 require("jace.highlight")
