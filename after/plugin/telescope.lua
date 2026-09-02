@@ -1,6 +1,6 @@
 local builtin = require('telescope.builtin')
 
-SEARCH_TESTS = false
+SEARCH_TESTS = true
 
 local test_patterns = {
     "!**/test_*.*",
