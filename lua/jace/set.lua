@@ -11,8 +11,18 @@ vim.opt.cindent = true
 if vim.fn.has('win32') == 1 then
     vim.opt.shell = 'powershell.exe'
 else
-    vim.opt.shell = "bash"
+    vim.opt.shell = "bash -l"
 end
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+    pattern = { '*.js', '*.ts', '*.jsx', '*.tsx' },
+    callback = function()
+        vim.opt.shiftwidth = 2
+    end
+})
+
+-- Don't add newlines to ends of files
+vim.opt.fixeol = false
 
 -- Sign column
 vim.opt.scl = "yes"
