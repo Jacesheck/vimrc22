@@ -37,7 +37,7 @@ vim.pack.add({
     'https://github.com/simrat39/rust-tools.nvim',
 
     -- Format
-    --'https://github.com/jose-elias-alvarez/null-ls.nvim',
+    'https://github.com/stevearc/conform.nvim',
 
     -- Debugging
     'https://github.com/mfussenegger/nvim-dap',

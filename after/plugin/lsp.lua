@@ -25,22 +25,17 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 
-vim.lsp.config('lua_ls', {
-    on_attach = function() print("lua_ls") on_attach() end,
-    capabilities = lsp_capabilities,
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = {'vim', 'gc', 'ui', 'tasksuite'},
-            },
-            workspace = {
-                library = {
-                    vim.env.VIMRUNTIME,
-                }
-            }
-        }
-    }
+vim.lsp.config('nil_ls', {}) -- TODO: Might not need this
+vim.lsp.enable('nil_ls')
+vim.lsp.enable('bashls')
+
+vim.lsp.enable('pyright')
+
+
+vim.lsp.config('cmake', {
+    root_markers = { "CMakeLists.txt", "CMakePresets.json", "CTestConfig.cmake", ".git", "build", "cmake" }
 })
+vim.lsp.enable('cmake')
 
 vim.lsp.config('lua_ls', {
     on_attach = function() print("lua_ls") on_attach() end,
@@ -84,27 +79,3 @@ cmp.setup({
     },
 })
 
------------- AVT LSP ---------------
-
-local function StartAvtLsp()
-    local path = "/home/j.denny/avt/linter/avt_language_server.py"
-    local function file_exists(name)
-        local f=io.open(name,"r")
-        if f~=nil then io.close(f) return true else return false end
-    end
-
-    if not file_exists(path) then return end
-
-    vim.lsp.start({
-        name = 'avt-language-server',
-        cmd = { "python", path },
-        root_dir = vim.fs.dirname(vim.fs.find({ '.git' }, { upward = true })[1]),
-    })
-end
-
-vim.api.nvim_create_user_command("StartAvtLsp", StartAvtLsp, {})
-
---vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
---    pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
---    callback = StartAvtLsp
---})
